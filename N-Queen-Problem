@@ -1,0 +1,65 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+class GFG
+{
+    static void printSolution(int pos[][])
+    {
+        System.out.print("[");
+        for(int i=0 ; i<pos.length ; i++)
+            for(int j=0 ; j<pos.length ; j++)
+                if(pos[j][i] == 1)
+                    System.out.print((j+1) + " ");
+        System.out.print("] ");
+    }
+    static boolean isSafe(int pos[][],int row, int col)
+    {
+        for(int i=0 ; i<col ; i++)
+            if(pos[row][i] == 1)
+                return false;
+        for(int r=row, c=col ; r>=0 && c>=0; r--, c--)
+            if(pos[r][c] == 1)
+                return false;
+        for(int r=row, c=col ; r<pos.length && c>=0 ; r++, c--)
+            if(pos[r][c] == 1)
+                return false;
+        return true;
+    }
+    static boolean solve(int pos[][], int col)
+    {
+        if(col == pos.length)
+        {
+            printSolution(pos);
+            return true;
+        }
+        boolean res = false;
+        for(int i=0 ; i<pos.length ; i++)
+        {
+            
+            if(isSafe(pos, i, col))
+            {
+                pos[i][col] = 1;
+                res = solve(pos, col+1) || res;
+                    
+                pos[i][col] = 0;
+                
+            }
+        }
+        return res;
+    }
+	public static void main (String[] args) throws Exception
+	{
+	    BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+	    int t = Integer.parseInt(bf.readLine());
+	    while(t-- > 0)
+	    {
+	        int n = Integer.parseInt(bf.readLine());
+	        int pos[][] = new int[n][n];
+	        if(!solve(pos, 0))
+	            System.out.println("-1");
+	        else
+	            System.out.println();
+	            
+	    }       
+	}
+}
