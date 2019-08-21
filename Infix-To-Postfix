@@ -1,0 +1,67 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+class GFG
+{
+    static int prec(char ch)
+    {
+        switch(ch)
+        {
+            case '+':
+            case '-':
+                        return 1;
+            case '*':
+            case '/':
+                        return 2;
+            case '^':
+                        return 3;
+            default:    return -1;
+        }
+    }
+    static void infixToPostfix(char c[])
+    {
+        String s = "";
+        Stack<Character> st = new Stack<Character>();
+        
+        for(int i=0 ; i<c.length ; i++)
+        {
+            if(Character.isLetterOrDigit(c[i]))
+                s += c[i];
+            else if(c[i] == '(')
+                st.push(c[i]);
+            else if(c[i] == ')')
+            {
+                while(!st.isEmpty() && st.peek() != '(')
+                    s += st.pop();
+                if(st.isEmpty())
+                {
+                    continue;
+                }
+                st.pop();
+            }
+            else
+            {
+                while(!st.isEmpty() && prec(c[i]) <= prec(st.peek()) && st.peek() != '(')
+                {
+                    s += st.pop();
+                }
+                st.push(c[i]);
+            }
+            
+        }
+        while(!st.isEmpty())
+            s += st.pop();
+        System.out.println(s);
+    }
+	public static void main (String[] args) throws Exception
+	{
+	    BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+	    int t = Integer.parseInt(bf.readLine());
+	    while(t-- > 0)
+	    {
+	        char c[] = bf.readLine().trim().toCharArray();
+	        infixToPostfix(c);
+	        
+	    }
+	}
+}
