@@ -1,0 +1,38 @@
+class BinaryTree
+{
+    static int min = Integer.MAX_VALUE, max = Integer.MIN_VALUE;
+    static void findVerticalOrder(Node root, HashMap<Integer, ArrayList<Integer>> hm, int hd)
+    {
+        if(root == null)
+            return;
+        ArrayList<Integer> al = hm.get(hd);
+        if(al == null)
+            al = new ArrayList<Integer>();
+        al.add(root.data);
+        hm.put(hd, al);
+        if(hd < min)
+            min = hd;
+        if(hd > max)
+            max = hd;
+        
+        findVerticalOrder(root.left, hm, hd-1);
+        findVerticalOrder(root.right, hm, hd+1);
+            
+    }
+    static void verticalOrder(Node root)
+    {
+        HashMap<Integer, ArrayList<Integer>> hm = new HashMap<Integer, ArrayList<Integer>>();
+        int hd = 0;
+        
+        findVerticalOrder(root, hm, 0);
+        
+        for(int i=min ; i<=max ; i++)
+        {
+            ArrayList<Integer> al = hm.get(i);
+            if(al == null)
+                continue;
+            for(int j=0 ; j<al.size() ; j++)
+                System.out.print(al.get(j) + " ");
+        }
+    }
+}
