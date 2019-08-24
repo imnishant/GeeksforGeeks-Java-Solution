@@ -1,0 +1,30 @@
+class GfG
+{
+    Node BST(ArrayList<Integer> al, int start, int end)
+    {
+        if(start > end)
+            return null;
+        int mid = (end + start) / 2;
+        Node node = new Node(al.get(mid));
+        
+        node.left = BST(al, start, mid-1);
+        node.right = BST(al, mid+1, end);
+        return node;
+    }
+    void inorder(Node root, ArrayList<Integer> al)
+    {
+        if(root == null)
+            return;
+        inorder(root.left, al);
+        al.add(root.data);
+        inorder(root.right, al);
+    }
+    Node buildBalancedTree(Node root) 
+    {
+        ArrayList<Integer> al = new ArrayList<Integer>();
+        inorder(root, al);
+        
+        root = BST(al, 0, al.size()-1);
+        return root;
+    }
+}
