@@ -1,0 +1,56 @@
+class Q
+{
+    int hd;
+    Node temp;
+    Q(Node t, int h)
+    {
+        temp = t;
+        hd = h;
+    }
+}
+class BinaryTree
+{
+    static int min = Integer.MAX_VALUE, max = Integer.MIN_VALUE;
+    static void findVerticalOrder(Node root, HashMap<Integer, ArrayList<Integer>> hm)
+    {
+        if(root == null)
+            return;
+        Queue<Q> q = new LinkedList<Q>();
+        q.add(new Q(root, 0));
+        
+        while(!q.isEmpty())
+        {
+            Q obj = q.pop();
+            ArrayList<Integer> al = hm.get(obj.hd);
+            if(al == null)
+                al = new ArrayList<Integer>();
+            al.add(obj.temp.data);
+            hm.put(obj.hd, al);
+            
+            if(obj.temp.left != null)
+                q.add(new Q(obj.temp.left, obj.hd-1));
+            if(obj.temp.right != null)
+                q.add(new Q(obj.temp.right, obj.hd+1));
+            if(obj.hd < min)
+                min = obj.hd;
+            if(obj.hd > max)
+                max = obj.hd;
+        }
+    }
+    static void verticalOrder(Node root)
+    {
+        HashMap<Integer, ArrayList<Integer>> hm = new HashMap<Integer, ArrayList<Integer>>();
+        int hd = 0;
+        
+        findVerticalOrder(root, hm);
+        
+        for(int i=min ; i<=max ; i++)
+        {
+            ArrayList<Integer> al = hm.get(i);
+            if(al == null)
+                continue;
+            for(int j=0 ; j<al.size() ; j++)
+                System.out.print(al.get(j) + " ");
+        }
+    }
+}
