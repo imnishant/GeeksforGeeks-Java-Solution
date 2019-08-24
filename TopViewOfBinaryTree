@@ -1,0 +1,42 @@
+class Q
+{
+    Node temp;
+    int hd;
+    Q(Node t, int h)
+    {
+        temp = t;
+        hd = h;
+    }
+}
+class View
+{
+    // function should print the topView of the binary tree
+    static void topView(Node root)
+    {
+        HashMap<Integer, Integer> hm = new HashMap<Integer, Integer>();
+        if(root == null)
+            return;
+        Queue<Q> q = new LinkedList<Q>();
+        q.add(new Q(root, 0));
+        int min = Integer.MAX_VALUE, max = Integer.MIN_VALUE;
+        while(!q.isEmpty())
+        {
+            Q obj = q.poll();
+            if(hm.get(obj.hd) == null)
+                hm.put(obj.hd, obj.temp.data);
+            
+            if(obj.temp.left != null)
+                q.add(new Q(obj.temp.left, obj.hd-1));
+            if(obj.temp.right != null)
+                q.add(new Q(obj.temp.right, obj.hd+1));
+            if(obj.hd < min)
+                min = obj.hd;
+            if(obj.hd > max)
+                max = obj.hd;
+        }
+        
+        for(int i=min ; i<=max ; i++)
+        {
+            System.out.print(hm.get(i) + " ");
+        }
+    }
