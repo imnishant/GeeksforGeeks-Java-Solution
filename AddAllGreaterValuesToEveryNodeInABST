@@ -12,3 +12,7 @@ class GfG
 	    modify(root.left);
     }
 }
+
+/*
+We can do it using a single traversal. The idea is to use following BST property. If we do reverse Inorder traversal of BST, we get all nodes in decreasing order. We do reverse Inorder traversal and keep track of the sum of all nodes visited so far, we add this sum to every node.
+*/
