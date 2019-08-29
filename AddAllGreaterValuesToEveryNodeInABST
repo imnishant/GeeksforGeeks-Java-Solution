@@ -1,0 +1,14 @@
+class GfG
+{   
+    int temp = 0;
+    void modify(Node root)
+    {
+        if(root == null)
+            return;
+        modify(root.right);
+	    
+	    root.data += temp;
+	    temp = root.data;
+	    modify(root.left);
+    }
+}
