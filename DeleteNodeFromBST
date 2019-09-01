@@ -1,0 +1,34 @@
+class BST
+{   
+    Node findMax(Node root)
+    {
+        if(root == null)
+            return null;
+        if(root.right == null)
+            return root;
+        return findMax(root.right);
+    }
+    Node deleteNode(Node root, int key) 
+    {
+	    if(root == null)
+	        return null;
+	    if(key < root.key)
+	        root.left = deleteNode(root.left, key);
+	    else if(key > root.key)
+	        root.right = deleteNode(root.right, key);
+	    else
+	    {
+	        if(root.left == null)
+	            return root.right;
+	        else if(root.right == null)
+	            return root.left;
+	        else
+	        {
+	            Node temp = findMax(root.left);
+	            root.key = temp.key;
+	            root.left = deleteNode(root.left, root.key);
+	        }
+	    }
+	    return root;
+    }
+}
