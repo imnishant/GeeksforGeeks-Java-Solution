@@ -1,0 +1,34 @@
+class GfG
+{
+	public static int maxLevelSum(Node root)
+    {
+        if(root == null)
+            return 0;
+            
+        Queue<Node> q = new LinkedList<Node>();
+        q.add(root);
+        int sum = 0;
+        int size = 0;
+        int maxSum = Integer.MIN_VALUE;
+        while(!q.isEmpty())
+        {
+            if(size == 0)
+            {
+                size = q.size();
+                sum = 0;
+            }
+            while(size > 0)
+            {
+                Node temp = q.poll();
+                sum += temp.data;
+                if(temp.left != null)
+                    q.add(temp.left);
+                if(temp.right != null)
+                    q.add(temp.right);
+                size--;
+            }
+            maxSum = Math.max(maxSum, sum);
+        }
+        return maxSum;
+    }
+}
