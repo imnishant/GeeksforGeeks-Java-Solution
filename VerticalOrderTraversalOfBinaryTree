@@ -1,0 +1,39 @@
+class GfG
+{
+    public static void printVertical(Node root)
+    {
+        if(root == null)
+            return;
+        HashMap<Integer, Integer> hm = new HashMap<Integer, Integer>();
+        Queue<Q> q = new LinkedList<Q>();
+        int hd = 0;
+        q.add(new Q(root, hd));
+        int max = Integer.MIN_VALUE;
+        int min = Integer.MAX_VALUE;
+        while(!q.isEmpty())
+        {
+            Q temp = q.poll();
+            hd = temp.hd;
+            Node obj = temp.node;
+            
+            if(hm.containsKey(hd) == false)
+                hm.put(hd, obj.data);
+            else
+                hm.put(hd, hm.get(hd) + obj.data);
+            if(obj.left != null)
+                q.add(new Q(obj.left, hd-1));
+            if(obj.right != null)
+                q.add(new Q(obj.right, hd+1));
+            if(hd < min)
+                min = hd;
+            if(hd > max)
+                max = hd;
+        }
+        StringBuffer sb = new StringBuffer();
+        for(int i = min ; i<=max ; i++)
+            sb.append(hm.get(i) + " ");
+        System.out.print(sb);
+        
+    }
+    
+}
