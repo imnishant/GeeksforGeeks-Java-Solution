@@ -1,0 +1,27 @@
+class Tree{
+    void rightView(Node node) {
+        if(node == null)
+            return;
+        Queue<Node> q = new LinkedList<Node>();
+        int size = 0;
+        q.add(node);
+        
+        while(!q.isEmpty())        
+        {
+            if(size == 0)
+                size = q.size();
+            while(size > 0)
+            {
+                Node temp = q.poll();
+                if(size == 1)
+                    System.out.print(temp.data + " ");
+                if(temp.left != null)
+                    q.add(temp.left);
+                if(temp.right != null)
+                    q.add(temp.right);
+                
+                size--;
+            }
+        }
+    }
+}
