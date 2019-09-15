@@ -1,0 +1,44 @@
+class GfG
+{
+    Node first, second, last, prev;
+    void inorder(Node root)
+    {
+        if(root == null)
+            return;
+        inorder(root.left);
+        
+        if(prev != null && root.data < prev.data)
+        {
+            if(first != null)
+                last = root;
+            else
+            {
+                first = prev;
+                second = root;
+            }
+        }
+        prev = root;
+        inorder(root.right);
+        
+    }
+    public Node correctBST(Node root)
+    {
+        prev = first = second = last = null;
+        inorder(root);
+        
+        if(last == null)
+        {
+            int temp = first.data;
+            first.data = second.data;
+            second.data = temp;
+        }
+        else
+        {
+            int temp = first.data;
+            first.data = last.data;
+            last.data = temp;
+        }
+        return root;
+    }
+    
+}
