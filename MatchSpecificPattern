@@ -1,0 +1,27 @@
+class GfG{
+    static String encode(String s)
+    {
+        HashMap<Character, Integer> hm = new HashMap<Character, Integer>();
+        int i = 0;
+        String res = "";
+        for(int j=0 ; j<s.length() ; j++)
+        {
+            if(!hm.containsKey(s.charAt(j)))
+                hm.put(s.charAt(j), i++);
+            res += hm.get(s.charAt(j));
+        }
+        return res;
+    }
+    public static ArrayList<String> findMatchedWords(ArrayList<String> dict, String pattern)
+	{
+	    ArrayList<String> al = new ArrayList<String>();
+	    String hash = encode(pattern);
+	    for(int i=0 ; i<dict.size() ; i++)
+	    {
+	        String s = dict.get(i);
+	        if(s.length() == pattern.length() && encode(s).equals(hash))
+	            al.add(s);
+	    }
+	    return al;
+	}
+}
