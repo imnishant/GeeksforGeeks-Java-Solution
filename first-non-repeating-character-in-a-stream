@@ -1,0 +1,43 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+class GFG
+{
+	public static void main (String[] args) throws Exception
+	{ 
+	    BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+	    int t = Integer.parseInt(bf.readLine());
+	    while(t-- > 0)
+	    {
+	        int n = Integer.parseInt(bf.readLine());
+	        String s = bf.readLine().trim();
+	        int freq[] = new int[26];
+	        
+	        Queue<Character> q = new LinkedList<Character>();
+	        StringBuffer sb = new StringBuffer();
+	        
+	        for(int i=0 ; i<n ; i++)
+	        {
+	            char ch = s.charAt(i*2);
+	            freq[ch - 'a']++;
+	            q.add(ch);
+	            
+	            while(!q.isEmpty())
+	            {
+	                if(freq[q.peek() - 'a'] > 1)
+	                    q.poll();
+	                else
+	                {
+	                    sb.append(q.peek() + " ");
+	                    break;
+	                }
+	            }
+	            
+	            if(q.isEmpty())
+	                sb.append(-1 + " ");
+	            
+	        }
+	        System.out.println(sb);
+	    }
+	}
+}
