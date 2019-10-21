@@ -1,3 +1,3 @@
 # Geeks-For-Geeks
 
-##My solutions for some geeksforgeeks problems.
+My solutions for some geeksforgeeks problems.
