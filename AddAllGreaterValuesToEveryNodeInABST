@@ -7,6 +7,7 @@ class GfG
             return;
         modify(root.right);
 	    
+	    
 	    root.data += temp;
 	    temp = root.data;
 	    modify(root.left);
