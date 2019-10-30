@@ -1,4 +1,5 @@
 class GfG
+
 {
     Node first, second, last, prev;
     void inorder(Node root)
