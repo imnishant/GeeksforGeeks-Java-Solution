@@ -1,0 +1,47 @@
+/*This is a function problem.You only need to complete the function given below*/
+/*Complete the function below*/
+/*
+ArrayList<ArrayList<Integer>> list: to represent graph containing 'v'
+                                    vertices and edges between them
+V: represent number of vertices
+*/
+class DetectCycle
+{
+    
+    static boolean check(int i, ArrayList<ArrayList<Integer>> list, boolean vis[], boolean reStack[])
+    {
+        if(reStack[i])
+            return true;
+        if(vis[i])
+            return false;
+        
+        reStack[i] = true;
+        vis[i] = true;
+        
+        Iterator<Integer> it = list.get(i).iterator();
+        Integer obj;
+        while(it.hasNext())
+        {
+            obj = it.next();
+            if(check(obj, list, vis, reStack))
+            {
+                return true;
+            }
+        }
+        reStack[i] = false;
+        return false;
+    }
+    static boolean isCyclic(ArrayList<ArrayList<Integer>> list, int V)
+    {
+        // add your code here
+        boolean reStack[] = new boolean[V];
+        boolean vis[] = new boolean[V];
+        
+        for(int i=0 ; i<V ; i++)
+        {
+            if(check(i, list, vis, reStack))
+                return true;
+        }
+        return false;
+    }
+}
