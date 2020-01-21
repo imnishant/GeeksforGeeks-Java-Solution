@@ -39,7 +39,8 @@ class GFG
             if(isSafe(pos, i, col))
             {
                 pos[i][col] = 1;
-                res = solve(pos, col+1) || res;
+                if(solve(pos, col+1) == true)
+			return true;
                     
                 pos[i][col] = 0;
                 
