@@ -1,0 +1,56 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+class GFG
+{
+    
+    static boolean checkPath(int arr[][], int i, int j, int n)
+    {
+        if(i<0 || i>=n || j<0 || j>=n)
+            return false;
+        
+        if(arr[i][j] == 0)
+            return false;
+        
+        if(arr[i][j] == 2)
+            return true;
+            
+        arr[i][j] = 0;
+        if(checkPath(arr, i-1, j, n) || checkPath(arr, i+1, j, n) || checkPath(arr, i, j-1, n) || checkPath(arr, i, j+1, n))
+            return true;
+        
+        return false;
+    }
+    
+	public static void main (String[] args) throws Exception
+	{
+	    BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+	    int t = Integer.parseInt(bf.readLine().trim());
+	    while(t-- > 0)
+	    {
+	        int n = Integer.parseInt(bf.readLine());
+	        int arr[][] = new int[n][n];
+	        String s[] = bf.readLine().trim().split(" ");
+	        
+	        int si = -1, sj = -1;
+	        
+	        for(int i=0 ; i<n ; i++)
+	        {
+	            for(int j=0 ; j<n ; j++)    
+	            {
+	                arr[i][j] = Integer.parseInt(s[i*n+j]);
+	                if(arr[i][j] == 1)
+	                {
+	                    si = i;
+	                    sj = j;
+	                }
+	            }
+	        }
+	        
+	        if(checkPath(arr, si, sj, n))
+	            System.out.println(1);
+	        else
+	            System.out.println(0);
+	    }
+	}
+}
