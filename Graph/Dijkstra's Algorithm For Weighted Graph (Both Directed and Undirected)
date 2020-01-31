@@ -1,0 +1,43 @@
+class Implementation
+{
+    static void dijkstra(ArrayList<ArrayList<Integer>> list, int src, int V)
+    {
+        char Path[] = new char[V];
+        int Distance[] = new int[V];
+        
+        for(int i=0 ; i<V ; i++)
+        {
+            Distance[i] = Integer.MAX_VALUE;
+            Path[i] = '-';
+        }
+        
+        Distance[src] = 0;
+        
+        Queue<Integer> q = new LinkedList<Integer>();
+        q.add(src);
+        
+        while(!q.isEmpty())
+        {
+            int vert = q.poll();
+            for(int i=0 ; i<list.get(vert).size() ; i++)
+            {
+                if(list.get(vert).get(i) != 0)
+                {
+                    int newDistance = Distance[vert] + list.get(vert).get(i);
+                    if(Distance[i] > newDistance)
+                    {
+                        Distance[i] = newDistance;
+                        q.add(i);
+                        //Path[i] = new Character(vert);
+                    }
+                }
+            }
+        }
+        
+        StringBuffer sb = new StringBuffer();
+        for(int i=0 ; i<V ; i++)
+            sb.append(Distance[i] + " ");
+        
+        System.out.print(sb);
+    }
+}
