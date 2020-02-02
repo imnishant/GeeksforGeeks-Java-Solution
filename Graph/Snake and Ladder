@@ -1,0 +1,65 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+class qEntry
+{
+    int vertNo;
+    int dist;
+}
+class GFG
+{
+    
+    static int find(int move[], int n)
+    {
+        boolean visited[] = new boolean[31];
+        Queue<qEntry> q = new LinkedList<qEntry>();
+        qEntry obj = new qEntry();
+        obj.vertNo = 1;
+        obj.dist = 0;
+        visited[1] = true;
+        q.add(obj);
+        
+        while(!q.isEmpty())
+        {
+            obj = q.poll();
+            int vert = obj.vertNo;
+            
+            if(vert == 30)
+                break;
+            
+            for(int i=vert+1 ; i<=vert+6 && i<31 ; i++)
+            {
+                if(!visited[i])
+                {
+                    qEntry temp = new qEntry();
+                    temp.dist = obj.dist + 1;
+                    visited[i] = true;
+                    
+                    if(move[i] == 0)
+                        temp.vertNo = i;
+                    else
+                        temp.vertNo = move[i];
+                        
+                    q.add(temp);
+                }
+            }
+        }
+        return obj.dist;
+    }
+	public static void main (String[] args) throws Exception
+	{
+	    BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+	    int t = Integer.parseInt(bf.readLine());
+	    while(t-- > 0)
+	    {
+	        int n = Integer.parseInt(bf.readLine());
+	        String s[] = bf.readLine().trim().split(" ");
+	        int move[] = new int[31];
+	        
+	        for(int i=0 ; i<2*n ; i=i+2)
+	            move[Integer.parseInt(s[i])] = Integer.parseInt(s[i+1]);
+	        
+	        System.out.println(find(move, n));
+	    }
+	}
+}
