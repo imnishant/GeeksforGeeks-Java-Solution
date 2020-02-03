@@ -1,0 +1,73 @@
+class SCC
+{
+    static void fillStack(int src, ArrayList<ArrayList<Integer>> list, boolean visited[], Stack<Integer> st)
+    {
+        visited[src] = true;
+        
+        for(int vert: list.get(src))
+        {
+            if(!visited[vert])
+                fillStack(vert, list, visited, st);
+        }
+        
+        st.push(src);
+    }
+    
+    static void DFS(int src, ArrayList<ArrayList<Integer>> list, boolean visited[])
+    {
+        visited[src] = true;
+        
+        for(int vert: list.get(src))
+        {
+            if(!visited[vert])
+                DFS(vert, list, visited);
+        }
+    }
+    
+    static ArrayList<ArrayList<Integer>> transpose(ArrayList<ArrayList<Integer>> list, int n)
+    {
+        ArrayList<ArrayList<Integer>> al = new ArrayList<ArrayList<Integer>>();
+        
+        for(int i=0 ; i<n ; i++)
+            al.add(new ArrayList<Integer>());
+        
+        for(int i=0 ; i<list.size()-1 ; i++)
+        {
+            for(int vert: list.get(i))
+            {
+                al.get(vert).add(i);
+            }
+        }
+        
+        return al;
+    }
+    
+    public int kosaraju(ArrayList<ArrayList<Integer>> list, int n)
+    {
+        int count = 0;
+        
+        Stack<Integer> st = new Stack<Integer>();
+        boolean visited[] = new boolean[n-1];
+        
+        for(int i=0 ; i<n-1 ; i++)
+            if(!visited[i])
+                fillStack(i, list, visited, st);
+        
+        list = transpose(list, n-1);
+        
+        for(int i=0 ; i<n-1 ; i++)
+            visited[i] = false;
+            
+        while(!st.isEmpty())
+        {
+            int v = st.pop();
+            
+            if(!visited[v])
+            {
+                DFS(v, list, visited);
+                count++;
+            }
+        }
+        return count;
+    }
+}
