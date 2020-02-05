@@ -1,0 +1,61 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+class block
+{
+    int x, y, dis;
+    block(int a, int b, int c)
+    {
+        x = a;
+        y = b;
+        dis = c;
+    }
+}
+class GFG
+{
+	public static void main (String[] args) throws Exception
+	{
+	    BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+	    int t = Integer.parseInt(bf.readLine());
+	    while(t-- > 0)
+	    {
+	        int n = Integer.parseInt(bf.readLine());
+	        String s[] = bf.readLine().trim().split(" ");
+	        int xSource = Integer.parseInt(s[0]);
+	        int ySource = Integer.parseInt(s[1]);
+	        
+	        s = bf.readLine().trim().split(" ");
+	        int xTarget = Integer.parseInt(s[0]);
+	        int yTarget = Integer.parseInt(s[1]);
+	        
+	        boolean visited[][] = new boolean[n+1][n+1]; 
+	        int dx[] = {-2, -1, 1, 2, -2, -1, 1, 2};  
+            int dy[] = {-1, -2, -2, -1, 1, 2, 2, 1};
+            
+            Queue<block> q = new LinkedList<block>();
+            visited[xSource][ySource] = true;
+            q.add(new block(xSource, ySource, 0));
+            
+            while(!q.isEmpty())
+            {
+                block obj = q.poll();
+                if(obj.x == xTarget && obj.y == yTarget)
+                {
+                    System.out.println(obj.dis);
+                }
+                
+                for(int i=0 ; i<8 ; i++)
+                {
+                    int x = obj.x + dx[i];
+                    int y = obj.y + dy[i];
+                    
+                    if(x > 0 && x <= n && y >0 && y <= n && visited[x][y] == false)
+                    {
+                        visited[x][y] = true;
+                        q.add(new block(x, y, obj.dis + 1));
+                    }
+                }
+            }
+	    }
+	}
+}
