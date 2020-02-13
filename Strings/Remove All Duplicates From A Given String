@@ -1,0 +1,28 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+class GFG
+{
+	public static void main (String[] args) throws Exception
+	{
+	    BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+	    int t = Integer.parseInt(bf.readLine().trim());
+	    while(t-- > 0)
+	    {
+	        String s = bf.readLine().trim();
+	        StringBuffer sb = new StringBuffer();
+	        HashMap<Character, Integer> hm = new HashMap<Character, Integer>();
+	        
+	        for(int i=0 ; i<s.length() ; i++)
+	        {
+	            char ch = s.charAt(i);
+	            if(!hm.containsKey(ch))
+	            {
+	                hm.put(ch, 1);
+	                sb.append(ch);
+	            }
+	        }
+	        System.out.println(sb);
+	    }
+	}
+}
