@@ -1,0 +1,23 @@
+class GfG
+{
+    int max_sum(int A[], int n)
+    {
+        int sumOfArray = 0;
+        for(int i=0 ; i<n ; i++)
+            sumOfArray += A[i];
+            
+        int sum = 0;
+        for(int i=0 ; i<n ; i++)
+            sum += A[i] * i;
+            
+        int res = sum;
+        
+        for(int i=1 ; i<n ; i++)
+        {
+            int temp = sum - (sumOfArray - A[i-1]) + (A[i-1] * (n-1));
+            sum = temp;
+            res = Math.max(res, temp);
+        }
+        return res;
+    }	
+}
