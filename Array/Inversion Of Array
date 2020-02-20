@@ -1,0 +1,70 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+class GFG
+{
+    static long merge(int arr[], int left, int mid, int right)
+    {
+        int B[] = new int[right - left + 1];
+        long count = 0;
+        int i = left, j = mid + 1, k = 0;
+        while(i <= mid && j <= right)
+        {
+            if(arr[i] <= arr[j])
+                B[k++] = arr[i++];
+            else
+            {
+                B[k++] = arr[j++];
+                count += (mid  - i) + 1;
+            }
+        }
+        
+        while(i <= mid)
+        {
+            B[k++] = arr[i++];
+        }
+        
+        while(j <= right)
+        {
+            B[k++] = arr[j++];
+        }
+        k = 0;
+        for(int t=left ; t<=right ; t++)
+        {
+            arr[t] = B[k++];
+        }
+        return count;
+    }
+    
+    static long mergeSort(int arr[], int l, int r)
+    {
+        long count = 0;
+        
+        if(l < r)
+        {
+            int mid = (l + r) / 2;
+            count += mergeSort(arr, l, mid);
+            count += mergeSort(arr, mid+1, r);
+            count += merge(arr, l, mid, r);
+        }
+        
+        return count;
+    }
+    
+	public static void main (String[] args) throws Exception
+	{
+	    BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+	    int t = Integer.parseInt(bf.readLine().trim());
+	    while(t-- > 0)
+	    {
+	        int n = Integer.parseInt(bf.readLine().trim());
+	        int arr[] = new int[n];
+	        int i = 0;
+	        for(String s: bf.readLine().trim().split(" "))
+	            arr[i++] = Integer.parseInt(s);
+	        
+	        System.out.println(mergeSort(arr, 0, n-1));
+	        
+	    }
+	}
+}
