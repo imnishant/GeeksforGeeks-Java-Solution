@@ -1,0 +1,45 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+class GFG
+{
+	public static void main (String[] args) throws Exception
+	{
+	    BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+	    int t = Integer.parseInt(bf.readLine());
+	    while(t-- > 0)
+	    {
+	        int n = Integer.parseInt(bf.readLine().trim());
+	        int arr[] = new int[n];
+	        int i = 0;
+	        for(String s: bf.readLine().trim().split(" "))  
+	            arr[i++] = Integer.parseInt(s);
+	        
+	        int lMin[] = new int[n];
+	        int rMax[] = new int[n];
+	        lMin[0] = arr[0];
+	        rMax[n - 1] = arr[n - 1];
+	        for(i=1 ; i<n ; i++)
+	            lMin[i] = Math.min(arr[i], lMin[i-1]);
+	                     
+	        for(i=n-2 ; i>=0 ; i--)
+	            rMax[i] = Math.max(arr[i], rMax[i+1]);
+	        
+	        i = 0;
+	        int j = 0;    
+	        int res = -1;
+	  	    while(i < n && j < n)
+	  	    {
+	  	        if(lMin[i] <= rMax[j])
+	  	        {
+	  	            res = Math.max(res, j - i);
+	  	            j++;
+	  	        }
+	  	        else
+	  	            i++;
+	  	    }
+	  	    
+	  	    System.out.println(res);
+	    }
+	}
+}
