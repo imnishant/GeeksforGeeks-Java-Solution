@@ -1,0 +1,48 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+class GFG
+{
+    static boolean vis[][];
+    static int dp[][];
+    static int count(int pos, int n, int s[])
+    {
+        if(pos == s.length)
+            return n == 0 ? 1 : 0;
+        if(n < 0)
+            return 0;
+        if(vis[pos][n])
+            return dp[pos][n];
+            
+        vis[pos][n] = true;
+        int ans = 0;
+        int times = 0;
+        while(n - (times * s[pos]) >= 0)
+        {
+            ans += count(pos + 1, n - (times * s[pos]), s);
+            dp[pos][n] = ans;
+            times++;
+        }
+        
+        return ans;
+    }
+	public static void main (String[] args) throws Exception
+	{
+	    BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+	    int t = Integer.parseInt(bf.readLine().trim());
+	    while(t-- > 0)
+	    {
+	        int m = Integer.parseInt(bf.readLine().trim());
+	        int s[] = new int[m];
+	        int i = 0;
+	        for(String str: bf.readLine().trim().split(" "))
+	            s[i++] = Integer.parseInt(str);
+	        
+	        int n = Integer.parseInt(bf.readLine().trim());
+	        
+	        vis = new boolean[m][n+1];
+	        dp = new int[m][n+1];
+	        System.out.println(count(0, n, s));
+	    }
+	}
+}
