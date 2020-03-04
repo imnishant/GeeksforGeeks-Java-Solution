@@ -1,0 +1,26 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+class GFG
+{
+	public static void main (String[] args) throws Exception
+	{
+	    BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+	    int t = Integer.parseInt(bf.readLine().trim());
+	    while(t-- > 0)
+	    {
+	        String str = bf.readLine().trim();
+	        int a = 0, b = 0, c = 0;
+	        for(int i=0 ; i<str.length() ; i++)
+	        {
+	            if(str.charAt(i) == 'a')
+	                a = a + a + 1;
+	            else if(str.charAt(i) == 'b')
+	                b = a + b + b;
+	            else
+	                c = b + c + c;
+	        }
+	        System.out.println(c);
+	    }
+	}
+}
