@@ -1,0 +1,20 @@
+class GfG
+{
+    int  subsequenceCount(String S, String T)
+    {
+	    int count[] = new int[T.length() + 1];
+	    count[0] = 1;
+	    
+	    for(int i=0 ; i<S.length() ; i++)
+	    {
+	        for(int j=T.length()-1 ; j>=0 ; j--)
+	        {
+	            if(S.charAt(i) == T.charAt(j))
+	            {
+	                count[j+1] = (count[j+1] + count[j]) % 1000000007;
+	            }
+	        }
+	    }
+	    return count[T.length()];
+    }
+}
