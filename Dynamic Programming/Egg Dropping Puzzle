@@ -1,0 +1,57 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+class GFG
+{
+    static int count(int totalEggs, int totalFloors)
+    {
+        if(totalEggs == 1)
+            return totalFloors;
+            
+        if(totalFloors == 0 || totalFloors == 1)
+            return totalFloors;
+        
+        int dp[][] = new int[totalEggs + 1][totalFloors + 1];
+        
+        for(int i=1 ; i<=totalFloors ; i++)
+            dp[1][i] = i;
+            
+        for(int i=1 ; i<=totalEggs ; i++)
+        {
+            dp[i][1] = 1;
+            dp[i][0] = 0;   
+        }
+        
+        for(int egg=2 ; egg<=totalEggs ; egg++)
+        {
+            for(int floor=2 ; floor<=totalFloors ; floor++)
+            {
+                dp[egg][floor] = Integer.MAX_VALUE;
+                
+                for(int curFloor=1 ; curFloor<=floor ; curFloor++)
+                {
+                    int worstOutcomeCost = Math.max(dp[egg-1][curFloor-1], dp[egg][floor - curFloor]);
+                    
+                    int costIncludingCurrentFloor = worstOutcomeCost + 1;
+                    
+                    dp[egg][floor] = Math.min(dp[egg][floor], costIncludingCurrentFloor);
+                }
+            }
+        }
+        return dp[totalEggs][totalFloors];
+    }
+    
+	public static void main (String[] args) throws Exception
+	{
+	    BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+	    int t = Integer.parseInt(bf.readLine().trim());
+	    while(t-- > 0)
+	    {
+	        String s[] = bf.readLine().trim().split(" ");
+	        int n = Integer.parseInt(s[0]);
+	        int k = Integer.parseInt(s[1]);
+	        
+	        System.out.println(count(n, k));
+	    }
+	}
+}
