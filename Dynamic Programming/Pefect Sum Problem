@@ -1,0 +1,41 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+class GFG
+{
+    static int c;
+    static void count(int arr[], int i, int sum, int k)
+    {
+        if(sum == k)
+        {
+            c++;
+            return;   
+        }
+        
+        if(i == arr.length || sum > k)
+            return;
+        
+        count(arr, i+1, sum + arr[i], k);
+        count(arr, i+1, sum, k);
+    }
+    
+	public static void main (String[] args) throws Exception
+	{
+	    BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+	    int t = Integer.parseInt(bf.readLine().trim());
+	    while(t-- > 0)
+	    {
+	        int n = Integer.parseInt(bf.readLine().trim());
+	        int arr[] = new int[n];
+	        int i = 0;
+	        
+	        for(String s: bf.readLine().trim().split(" "))
+	            arr[i++] = Integer.parseInt(s);
+	            
+	        int k = Integer.parseInt(bf.readLine().trim());
+	        c = 0;
+	        count(arr, 0, 0, k);
+	        System.out.println(c);
+	    }
+	}
+}
