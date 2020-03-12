@@ -1,0 +1,57 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+class GFG
+{
+    static boolean partition(int arr[], int start, boolean used[], int curSum, int targetSum)
+    {
+        if(curSum == targetSum)
+            return true;
+        if(curSum > targetSum)
+            return false;
+        
+        for(int i=start ; i<arr.length ; i++)
+        {
+            if(!used[i])
+            {
+                used[i] = true;
+                if(partition(arr, start + 1, used, curSum + arr[i], targetSum))
+                    return true;
+                used[i] = false;
+            }
+        }
+        return false;
+    }
+    
+    static boolean check(int arr[])
+    {
+        int sum = 0;
+        for(int i=0 ; i<arr.length ; i++)
+            sum += arr[i];
+        
+        if(sum % 2 != 0)
+            return false;
+            
+        return partition(arr, 0, new boolean[arr.length], 0, sum / 2);
+    }
+    
+	public static void main (String[] args) throws Exception
+	{
+	    BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+	    int t = Integer.parseInt(bf.readLine().trim());
+	    while(t-- > 0)
+	    {
+	        int n = Integer.parseInt(bf.readLine().trim());
+	        int i = 0;
+	        int arr[] = new int[n];
+	        
+	        for(String s : bf.readLine().trim().split(" "))
+	            arr[i++] = Integer.parseInt(s);
+	        
+	        if(check(arr))
+	            System.out.println("YES");
+	        else 
+	            System.out.println("NO");
+	    }
+	}
+}
