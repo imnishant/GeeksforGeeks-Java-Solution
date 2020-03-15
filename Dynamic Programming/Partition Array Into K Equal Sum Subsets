@@ -1,0 +1,43 @@
+class GfG
+{
+    boolean vis[][];
+    boolean partition(int arr[], int start, boolean used[], int k, int curSum, int targetSum)
+    {
+        if(k == 1)
+            return true;
+        
+        if(curSum == targetSum)
+            return partition(arr, 0, used, k-1, 0, targetSum);
+        
+        for(int i=0 ; i<arr.length ; i++)
+        {
+            int temp = curSum + arr[i];
+            if(!used[i] && temp <= targetSum)
+            {
+                if(!vis[temp - 1][i])
+                {
+                    used[i] = true;
+                    if(partition(arr, i + 1, used, k, curSum + arr[i], targetSum))
+                        return true;
+                    vis[temp - 1][i] = true;
+                    used[i] = false;
+                }
+            }
+        }
+        return false;
+    }
+    
+    boolean isKPartitionPossible(int arr[], int n, int k)
+    {
+	    int sum = 0;
+	    for(int i=0 ; i<n ; i++)
+	        sum += arr[i];
+	        
+	    if(k <= 0 || k > n || sum % k != 0)
+	        return false;
+	       
+	    vis = new boolean[sum / k][n];
+	    
+	    return partition(arr, 0, new boolean[n], k, 0, sum / k);
+    }
+}
