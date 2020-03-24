@@ -1,0 +1,53 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+class GFG
+{
+	public static void main (String[] args) throws Exception
+	{
+	    BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+	    int t = Integer.parseInt(bf.readLine());
+	    long ugly[] = new long[10000];
+	    while(t-- > 0)
+	    {
+	        int n = Integer.parseInt(bf.readLine().trim());
+	        if(ugly[n-1] != 0)
+	        {
+	            System.out.println(ugly[n-1]);
+	            continue;
+	        }
+	        //long ugly[] = new long[n];
+	        long nextUglyNumber = 1;
+	        ugly[0] = nextUglyNumber;
+	        
+	        int i2 = 0, i3 = 0, i5 = 0;
+	        long nextMultipleOf2 = 2;
+	        long nextMultipleOf3 = 3;
+	        long nextMultipleOf5 = 5;
+	        
+	        for(int i=1 ; i<n ; i++)
+	        {
+	            nextUglyNumber = Math.min(nextMultipleOf2, Math.min(nextMultipleOf3, nextMultipleOf5));
+	            ugly[i] = nextUglyNumber;
+	            
+	            if(nextUglyNumber == nextMultipleOf2)
+	            {
+	                i2++;
+	                nextMultipleOf2 = ugly[i2] * 2;
+	            }
+	            if(nextUglyNumber == nextMultipleOf3)
+	            {
+	                i3++;
+	                nextMultipleOf3 = ugly[i3] * 3;
+	            }
+	            if(nextUglyNumber == nextMultipleOf5)
+	            {
+	                i5++;
+	                nextMultipleOf5 = ugly[i5] * 5;
+	            }
+	        }
+	       
+	        System.out.println(ugly[n-1]);
+	    }
+	}
+}
