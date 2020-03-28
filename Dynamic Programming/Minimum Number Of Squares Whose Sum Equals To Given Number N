@@ -1,0 +1,41 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+class GFG
+{
+    static int dp[];
+    static int calculate(int n)
+    {
+        if(n <= 3)
+            return n;
+        if(dp[n] != 0)
+            return dp[n];
+            
+        dp[n] = n;
+        
+        for(int i=1 ; i<=(int)Math.sqrt(n) ; i++)
+        {
+            int square = i * i;
+            
+            if(square > n)
+                break;
+                
+            dp[n] = Math.min(dp[n], 1 + calculate(n - square));
+        }
+        
+        return dp[n];
+    }
+    
+	public static void main (String[] args) throws Exception
+	{
+	    BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+	    int t = Integer.parseInt(bf.readLine().trim());
+	    while(t-- > 0)
+	    {
+	        int n = Integer.parseInt(bf.readLine().trim());
+	        dp = new int[n + 1];
+	        System.out.println(calculate(n));
+	    }
+	    
+	}
+}
