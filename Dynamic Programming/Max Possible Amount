@@ -1,0 +1,41 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+class GFG
+{
+    static int dp[][];
+    static int maxAmount(int arr[], int i, int j, int sum)
+    {
+        if(i + 1 == j)
+            return Math.max(arr[i], arr[j]);
+            
+        if(dp[i][j] != 0)
+            return dp[i][j];
+            
+        dp[i][j] = Math.max((sum - maxAmount(arr, i+1, j, sum - arr[i])), (sum - maxAmount(arr, i, j-1, sum - arr[j])));
+        
+        return dp[i][j];
+    }
+    
+	public static void main (String[] args) throws Exception
+	{
+	    BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+	    int t = Integer.parseInt(bf.readLine().trim());
+	    while(t-- > 0)
+	    {
+	        int n  = Integer.parseInt(bf.readLine().trim());
+	        int arr[] = new int[n];
+	        int i = 0;
+	        int sum = 0;
+	        for(String s: bf.readLine().trim().split(" "))
+	        {
+	            arr[i] = Integer.parseInt(s);
+	            sum += arr[i++];
+	        }   
+	        
+	        dp = new int[n][n];
+	        
+	        System.out.println(maxAmount(arr, 0, n-1, sum));
+	    }
+	}
+}
