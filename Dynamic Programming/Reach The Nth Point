@@ -1,0 +1,33 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+class GFG
+{
+    static long dp[];
+    static long count(int n)
+    {
+        if(n == 0)
+            return 1;
+        if(n < 0)
+            return 0;
+        if(dp[n] != 0)
+            return dp[n];
+            
+        dp[n] = count(n - 1) + count(n - 2);
+        
+        return dp[n];
+    }
+    
+	public static void main (String[] args) throws Exception
+	{
+	    BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+	    int t = Integer.parseInt(bf.readLine().trim());
+	    while(t-- > 0)
+	    {
+	        int n = Integer.parseInt(bf.readLine().trim());
+	        dp = new long[n + 1];
+	        
+	        System.out.println(count(n));
+	    }
+	}
+}
