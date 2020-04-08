@@ -1,0 +1,44 @@
+int n = str.length();
+        int m = pattern.length();
+        
+        if(n == 0 && m == 0)
+            return 1;
+            
+        int i = 0, j = 0, indexOfStar = -1, indexOfText = -1;
+        while(i < n)
+        {
+        	
+            if(j < m && str.charAt(i) == pattern.charAt(j))
+            {
+                i++;
+                j++;
+            }
+            else if(j < m && pattern.charAt(j) == '?')
+            {
+                i++;
+                j++;
+            }
+            else if(j < m && pattern.charAt(j) == '*')
+            {
+                indexOfStar = j;
+                indexOfText = i;
+                j++;
+            }
+            else if(indexOfStar != -1)
+            {
+                i = ++indexOfText;
+                j = indexOfStar + 1;
+            }
+            else
+                return 0;
+        }
+        
+        while(j < pattern.length() && pattern.charAt(j) == '*')
+        {
+            j++;
+        }
+        
+        if(j == pattern.length())
+            return 1;
+            
+        return 0;
