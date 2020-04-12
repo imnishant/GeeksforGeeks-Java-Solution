@@ -1,0 +1,63 @@
+class Box implements Comparable<Box>
+{
+    int l, w, h, baseArea;
+    
+    Box(int h, int w, int l)
+    {
+        this.h = h;
+        this.w = w;
+        this.l = l;
+    }
+    
+    @Override
+    public int compareTo(Box obj)
+    {
+        return obj.baseArea - this.baseArea;
+    }
+}
+
+class Geeks 
+{
+    public static int maxHeight(int height[], int width[], int length[], int n)
+    {
+        Box arr[] = new Box[3 * n];
+       
+        for(int i=0 ; i<n ; i++)
+        {
+            arr[3 * i] = new Box(height[i], Math.max(width[i], length[i]), Math.min(width[i], length[i]));
+           
+            arr[3 * i + 1] = new Box(width[i], Math.max(height[i], length[i]), Math.min(height[i], length[i]));
+           
+            arr[3 * i + 2] = new Box(length[i], Math.max(width[i], height[i]), Math.min(width[i], height[i]));
+           
+            arr[3 * i].baseArea = arr[3 * i].l * arr[3 * i].w;
+           
+            arr[3 * i + 1].baseArea = arr[3 * i + 1].l * arr[3 * i + 1].w;
+           
+            arr[3 * i + 2].baseArea = arr[3 * i + 2].l * arr[3 * i + 2].w;
+        }
+       
+        Arrays.sort(arr);
+       
+        int dp[] = new int[3 * n];
+        int max = -1;
+       
+        for(int i=0 ; i<3*n ; i++)
+        {
+            dp[i] = 0;
+            int val = 0;
+            
+            for(int j=0 ; j<i ; j++)
+                if(arr[j].w > arr[i].w && arr[j].l > arr[i].l)
+                    val = Math.max(val, dp[j]);
+                    
+            dp[i] = arr[i].h + val;
+        }
+       
+        for(int i=0 ; i<arr.length ; i++)
+            if(dp[i] > max)
+                max = dp[i];
+       
+        return max;
+   }
+}
