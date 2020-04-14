@@ -1,0 +1,64 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+class GFG
+{
+    static void sort(int arr1[], int arr2[], int n, int m)
+    {
+        int last;
+        //'i' will iterate over arr2 and 'j' will iterate over arr1
+        
+        for(int i=m-1 ; i>=0 ; i--)
+        {
+            last = arr1[n - 1];
+            int j = n - 2;
+            
+            while(j >=0 && arr1[j] > arr2[i])
+            {
+                arr1[j + 1] = arr1[j];
+                j--;
+            }
+            
+            if(j != n - 2 && last > arr2[i])
+            {
+                arr1[j + 1] = arr2[i];
+                arr2[i] = last;
+            }
+        }
+    }
+    
+	public static void main (String[] args) throws Exception
+	{
+	    BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+	    int t = Integer.parseInt(bf.readLine());
+	    while(t-- > 0)
+	    {
+	        int size[] = new int[2];
+	        int i = 0;
+	        for(String s: bf.readLine().trim().split(" "))
+	            size[i++] = Integer.parseInt(s);
+	        
+	        int arr1[] = new int[size[0]];
+	        int arr2[] = new int[size[1]];
+	        
+	        i = 0;
+	        for(String s: bf.readLine().trim().split(" "))
+	            arr1[i++] = Integer.parseInt(s);
+	            
+	        i = 0;
+	        for(String s: bf.readLine().trim().split(" "))
+	            arr2[i++] = Integer.parseInt(s);
+	        
+	        sort(arr1, arr2, size[0], size[1]);
+	        StringBuffer sb = new StringBuffer();
+	        
+	        for(i=0 ; i<size[0] ; i++)
+	            sb.append(arr1[i] + " ");
+	            
+	        for(i=0 ; i<size[1] ; i++)
+	            sb.append(arr2[i] + " ");
+	            
+	        System.out.println(sb);
+	    }
+	}
+}
