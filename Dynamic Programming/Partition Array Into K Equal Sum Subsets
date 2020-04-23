@@ -9,7 +9,7 @@ class GfG
         if(curSum == targetSum)
             return partition(arr, 0, used, k-1, 0, targetSum);
         
-        for(int i=0 ; i<arr.length ; i++)
+        for(int i=start ; i<arr.length ; i++)
         {
             int temp = curSum + arr[i];
             if(!used[i] && temp <= targetSum)
