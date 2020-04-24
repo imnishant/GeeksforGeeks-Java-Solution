@@ -1,0 +1,36 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+class GFG
+{
+    static int dp[];
+    static int count(int arr[], int i, int n)
+    {
+        if(i >= n)
+            return 0;
+        if(dp[i] != 0)
+            return dp[i];
+            
+        dp[i] = Math.max(arr[i] + count(arr, i + 2, n), count(arr, i + 1, n));
+        return dp[i];
+    }
+    
+	public static void main (String[] args) throws Exception
+	{
+	    BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+	    int t = Integer.parseInt(bf.readLine());
+	    while(t-- > 0)
+	    {
+	        int n = Integer.parseInt(bf.readLine().trim());
+	        int arr[] = new int[n];
+	        int i = 0;
+	        
+	        for(String s: bf.readLine().trim().split(" "))
+	            arr[i++] = Integer.parseInt(s);
+	            
+	        dp = new int[n];
+	        System.out.println(count(arr, 0, n));
+	    }
+	    
+	}
+}
