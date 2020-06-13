@@ -1,0 +1,37 @@
+class Solution{
+    boolean flag;
+    void makeChanges(Node head)
+    {
+        if(head == null)
+            return;
+        
+        makeChanges(head.next);
+        
+        if(flag)
+            return;
+        
+        if(head.data < 9)
+        {
+            head.data++;
+            flag = true;   
+        }
+        else
+            head.data = 0;
+        
+    }
+    
+    public Node addOne(Node head) 
+    { 
+        flag = false;
+        makeChanges(head);
+        
+        if(head.data == 0)
+        {
+            Node temp = new Node(1);
+            temp.next = head;
+            return temp;
+        }
+        
+        return head;
+    } 
+}
