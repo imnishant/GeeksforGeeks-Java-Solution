@@ -1,0 +1,42 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+class GFG
+{
+	public static void main (String[] args) throws Exception
+	{
+	    BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+	    int t = Integer.parseInt(bf.readLine().trim());
+	    while(t-- > 0)
+	    {
+	        String s[] = bf.readLine().trim().split(" ");
+	        int n = Integer.parseInt(s[0]);
+	        int target = Integer.parseInt(s[1]);
+	        
+	        s = bf.readLine().trim().split(" ");
+	        int arr[] = new int[n];
+	        HashMap<Integer, Integer> hm = new HashMap<Integer, Integer>();
+	        boolean flag = false;
+	        
+	        for(int i=0 ; i<n ; i++)
+	        {
+	            arr[i] = Integer.parseInt(s[i]);
+	            hm.put(arr[i], i);
+	        }
+	        
+	        for(int i=0 ; i<n ; i++)
+	        {
+	            int val = target - arr[i];
+	            if(hm.containsKey(val) && hm.get(val) != i)
+	            {
+	                System.out.println("Yes");
+	                flag = true;
+	                break;
+	            }
+	        }
+	        
+	        if(!flag)
+	            System.out.println("No");
+	    }
+	}
+}
