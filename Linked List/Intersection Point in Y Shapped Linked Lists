@@ -1,0 +1,37 @@
+/* Node of a linked list
+ class Node {
+   int data;
+    Node next;
+    Node(int d)  { data = d;  next = null; }
+}
+ Linked List class
+class LinkedList
+{
+    Node head;  // head of list
+}
+This is method only submission.  You only need to complete the method. */
+class Intersect
+{
+	int intersectPoint(Node headA, Node headB)
+	{
+        Node traceA = headA;
+        Node traceB = headB;
+         
+        while(traceA != traceB)
+        {
+            if(traceA == null)
+                traceA = headB;
+            else 
+                traceA = traceA.next;
+                
+            if(traceB == null)
+                traceB = headA;
+            else
+                traceB = traceB.next;
+        }
+        
+        if(traceA != null)
+            return traceA.data;
+        return -1;
+	}
+}
