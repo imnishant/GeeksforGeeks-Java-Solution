@@ -1,0 +1,58 @@
+//User function Template for Java
+
+/*
+class Node
+{
+    int data;
+    Node next;
+    Node(int data)
+    {
+        this.data = data;
+        next = null;
+    }
+}
+*/
+class LinkedList
+{
+    static Node segregate(Node head)
+    {
+        if(head == null || head.next == null)
+            return head;
+            
+        Node zero = new Node(0);
+        Node one = new Node(0);
+        Node two = new Node(0);
+        
+        Node zeroS = zero, oneS = one, twoS = two;
+        
+        while(head != null)
+        {
+            if(head.data == 0)
+            {
+                zero.next = head;
+                zero = zero.next;
+            }
+            else if(head.data == 1)
+            {
+                one.next = head;
+                one = one.next;
+            }
+            else
+            {
+                two.next = head;
+                two = two.next;
+            }
+            
+            head = head.next;
+        }
+        
+        if(oneS.next != null)
+            zero.next = oneS.next;
+        else
+            zero.next = twoS.next;
+            
+        one.next = twoS.next;
+        two.next = null;
+        return zeroS.next;
+    }
+}
