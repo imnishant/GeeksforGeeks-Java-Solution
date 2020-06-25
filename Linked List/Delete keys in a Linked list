@@ -1,0 +1,35 @@
+/* Linked list Node
+class Node
+{
+	int data;
+	Node next;
+	
+	Node(int d)
+	{
+		data = d;
+		next = null;
+	}
+}*/
+
+class GfG
+{
+    public static Node deleteAllOccurances(Node head, int x)
+    {
+        Node cur = head;
+        Node prev = new Node(0);
+        Node start = prev;
+        prev.next = cur;
+        
+        while(cur != null)
+        {
+            if(cur.data == x)
+                prev.next = cur.next;
+            else
+                prev = cur;
+            
+            cur = cur.next;
+        }
+        
+        return start.next;
+    }
+}
