@@ -1,0 +1,57 @@
+/* Following is the Linked list node structure */
+
+/*class Node
+{
+    int data;
+    Node next;
+    Node(int d) {
+        data = d;
+        next = null;
+    }
+}*/
+
+class gfg {
+    Node reorderlist(Node head) {
+        
+        //Finding mid of linked list
+        Node slow = head;
+        Node fast = head;
+        
+        while(fast.next != null && fast.next.next != null)
+        {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        
+        //Reverse second half of linked list
+        Node middle = slow.next;
+        slow.next = null;
+        Node prev = null, cur = middle;
+        
+        while(cur != null)
+        {
+            Node next = cur.next;
+            cur.next = prev;
+            prev = cur;
+            cur = next;
+        }
+        
+        //Merge two halfs alternatively
+        Node p1 = head;
+        Node p2 = prev;
+        
+        while(p2 != null)
+        {
+            Node p1Next = p1.next;
+            p1.next = p2;
+            
+            Node p2Next = p2.next;
+            p2.next = p1Next;
+            
+            p2 = p2Next;
+            p1 = p1Next;
+        }
+        
+        return head;
+    }
+}
