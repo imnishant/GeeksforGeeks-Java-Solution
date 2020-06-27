@@ -1,0 +1,39 @@
+/* The structure of linked list is the following
+class Node
+{
+    int data;
+    Node next;
+    Node(int d) {
+        data = d; 
+        next = null;
+    }
+}
+*/
+
+class GfG
+{
+    // Function to remove duplicates from the given linked list
+    public Node removeDuplicates(Node head) 
+    {
+        HashSet<Integer> hs = new HashSet<Integer>();
+        Node prev = head;
+        Node cur = head.next;
+        hs.add(prev.data);
+        
+        while(cur != null)
+        {
+            if(hs.contains(cur.data))
+            {
+                prev.next = cur.next;
+                cur = cur.next;
+            }
+            else
+            {
+                hs.add(cur.data);
+                prev = cur;
+                cur = cur.next;
+            }
+        }
+        return head;
+    }
+}
