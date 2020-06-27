@@ -1,0 +1,53 @@
+/*
+class Node {
+    int data;
+    Node next, arb;
+
+    Node(int d) 
+    { 
+        data = d;
+        next = arb = null; 
+        
+    }
+}*/
+// function to copy linked list
+class Clone {
+    Node copyList(Node head) {
+        
+        //Copy Node
+        Node temp = head;
+        while(temp != null)
+        {
+            Node next = temp.next;
+            Node copy = new Node(temp.data);
+            temp.next = copy;
+            temp = next;
+            copy.next = next;
+        }
+        
+        //Assign random pointers to copied node
+        temp = head;
+        while(temp != null)
+        {
+            if(temp.arb != null)
+                temp.next.arb = temp.arb.next;
+                
+            temp = temp.next.next;
+        }
+        
+        //Seperate copied list
+        temp = head;
+        Node dummy = new Node(0);
+        Node start = dummy;
+        while(temp != null)
+        {
+            Node next = temp.next.next;
+            dummy.next = temp.next;
+            dummy = dummy.next;
+            temp.next = next;
+            temp = temp.next;
+        }
+        
+        return start.next;
+    }
+}
