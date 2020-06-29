@@ -1,0 +1,37 @@
+/* Structure of node
+
+class Node
+{
+    int data;
+    Node next;
+    Node(int d) {data = d; next = null; }
+}
+*/
+
+class GfG
+{
+    int num;
+    // Function to find the nth node from end in the linked list
+    // head: head of the linked list
+    // n: nth node from end to find
+    int find(Node head)
+    {
+        if(head == null)
+    	    return -1;
+    	    
+    	int res = find(head.next);
+    	if(res != -1)
+    	    return res;
+    	
+    	if(--num == 0)
+    	    return head.data;
+    	    
+    	return -1;
+    }
+    int getNthFromLast(Node head, int n)
+    {
+    	num = n;
+    	return find(head);
+    	
+    }
+}
