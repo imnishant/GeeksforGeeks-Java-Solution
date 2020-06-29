@@ -1,0 +1,43 @@
+/*
+class Node
+{
+    int data;
+    Node next;
+}
+*/
+
+class solver
+{
+    public static void removeLoop(Node head){
+        // code here
+        // remove the loop without losing any nodes
+        if(head == null || head.next == null)
+            return;
+        Node dummyHead = new Node();   //If we'll not use this, our code will not work when the last node is connected to the first node
+        dummyHead.next = head;
+        Node slow = dummyHead;
+        Node fast = dummyHead;
+        
+        while(fast.next != null && fast.next.next != null)
+        {
+            slow = slow.next;
+            fast = fast.next.next;
+            
+            if(slow == fast)
+                break;
+        }
+        
+        if(slow == fast)
+        {
+            slow = dummyHead;
+            
+            while(slow.next != fast.next)
+            {
+                slow = slow.next;
+                fast = fast.next;
+            }
+            
+            fast.next = null;   //If you will use slow here, then linked list will be divided into two parts
+        }
+    }
+}
