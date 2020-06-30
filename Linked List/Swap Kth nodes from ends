@@ -1,0 +1,61 @@
+//User function Template for Java
+
+
+/* Linked List Node class
+   class Node  {
+     int data;
+     Node next;
+     Node(int data)
+     {
+         this.data = data;
+         next = null;
+     }
+  }
+*/
+class GFG
+{
+    // Should swap Kth node from beginning and 
+    // Kth node from end in list and return new head.
+    Node swapkthnode(Node head, int num, int K)
+    {
+        if(num < K)
+            return head;
+            
+        if(2 * K - 1 == num)
+            return head;
+            
+        Node prevStart = null;
+        Node curStart = head;
+        
+        for(int i=0 ; i<K-1 ; i++)
+        {
+            prevStart = curStart;
+            curStart = curStart.next;
+        }
+        
+        Node prevEnd = null;
+        Node curEnd = head;
+        
+        for(int i=0 ; i<num-K ; i++)
+        {
+            prevEnd = curEnd;
+            curEnd = curEnd.next;
+        }
+        
+        if(prevStart != null)
+            prevStart.next = curEnd;
+            
+        if(prevEnd != null)
+            prevEnd.next = curStart;
+            
+        Node temp = curStart.next;
+        curStart.next = curEnd.next;
+        curEnd.next = temp;
+        
+        if(K == 1)
+            return curEnd;
+        if(K == num)
+            return curStart;
+        return head;
+    }
+}
