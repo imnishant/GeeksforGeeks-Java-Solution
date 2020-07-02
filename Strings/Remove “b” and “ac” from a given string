@@ -1,0 +1,34 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+class GFG
+{
+	public static void main (String[] args) throws Exception
+	{
+	    BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+	    int t = Integer.parseInt(bf.readLine().trim());
+	    
+	    while(t-- > 0)
+	    {
+	        char ch[] = bf.readLine().trim().toCharArray();
+	        
+	        int j = 0;
+	        for(int i=0 ; i<ch.length ; i++)
+	        {
+	            if(ch[i] == 'b')
+	                continue;
+	            else if(i+1 < ch.length && ch[i] == 'a' && ch[i + 1] == 'c')
+	                i++;
+	            else
+	                ch[j++] = ch[i];
+	        }
+	        
+	        while(j < ch.length)
+	        {
+	            ch[j++] = '\0';
+	        }
+	        
+	        System.out.println(ch);
+	    }
+	}
+}
