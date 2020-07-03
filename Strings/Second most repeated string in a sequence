@@ -1,0 +1,48 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+class GFG
+{
+	public static void main (String[] args) throws Exception
+	{ 
+	    BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+	    int t = Integer.parseInt(bf.readLine().trim());
+	    
+	    while(t-- > 0)
+	    {
+	        int n = Integer.parseInt(bf.readLine().trim());
+	        String s[] = bf.readLine().trim().split(" ");
+	        
+	        HashMap<String, Integer> hm = new HashMap<String, Integer>();
+	        for(String str: s)
+	        {
+	            if(!hm.containsKey(str))
+	                hm.put(str, 1);
+	            else
+	                hm.put(str, hm.get(str) + 1);
+	        }
+	        
+	        int max = Integer.MIN_VALUE + 1;
+	        int secondMax = Integer.MIN_VALUE;
+	        String cur = "";
+	        String prev = "";
+	        for(Map.Entry<String, Integer> me: hm.entrySet())
+	        {
+	            if(me.getValue() > max)
+	            {
+	                secondMax = max;
+	                max = me.getValue();
+	                prev = cur;
+	                cur = me.getKey();
+	            }
+	            else if(me.getValue() > secondMax)
+	            {
+	                secondMax = me.getValue();
+	                prev = me.getKey();
+	            }
+	        }
+	        
+	        System.out.println(prev);
+	    }
+	}
+}
