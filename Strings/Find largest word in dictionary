@@ -1,0 +1,46 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+class GFG
+{
+    static boolean check(String word, String str)
+    {
+        int j = 0;
+        for(int i=0 ; i<str.length() && j<word.length() ; i++)
+            if(word.charAt(j) == str.charAt(i))
+                j++;
+                
+        if(j == word.length())
+            return true;
+        
+        return false;
+    }
+    
+	public static void main (String[] args) throws Exception
+	{
+	    BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+	    int t = Integer.parseInt(bf.readLine().trim());
+	    
+	    while(t-- > 0)
+	    {
+	        int n = Integer.parseInt(bf.readLine().trim());
+	        String s[] = bf.readLine().trim().split(" ");
+	        String str = bf.readLine().trim();
+	        
+	        int length = 0;
+	        String res = "";
+	        
+	        for(String word: s)
+	        {
+	            if(word.length() > length && check(word, str))
+	            {
+	                length = word.length();
+	                res = word;
+	            }
+	        }
+	        
+	        System.out.println(res);
+	        
+	    }
+	}
+}
