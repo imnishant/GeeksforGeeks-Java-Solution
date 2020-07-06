@@ -1,0 +1,40 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+class GFG
+{
+	public static void main (String[] args) throws Exception
+	{
+	    BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+	    int t = Integer.parseInt(bf.readLine().trim());
+	    
+	    while(t-- > 0)
+	    {
+	        String s = bf.readLine().trim();
+	        
+	        if(s.length() % 2 == 1)
+	        {
+	            System.out.println(-1);
+	            continue;
+	        }
+	        
+	        int open = 0;
+	        int close = 0;
+	        
+	        for(char ch: s.toCharArray())
+	        {
+	            if(ch == '{')
+	                open++;
+	            else
+	            {
+	                if(open == 0)
+	                    close++;
+	                else
+	                    open--;
+	            }
+	        }
+	        
+	        System.out.println((int)Math.ceil(++open / 2) + (int)Math.ceil(++close / 2));
+	    }
+	}
+}
