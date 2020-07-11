@@ -1,0 +1,39 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+class GFG
+{
+	public static void main (String[] args) throws Exception
+	{
+	    BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+	    int t = Integer.parseInt(bf.readLine().trim());
+	    while(t-- > 0)
+	    {
+	        String s = bf.readLine().trim();
+	        int n = s.length();
+	        boolean flag = false;
+	        
+	        for(int i=1 ; i<=n/2 ; i++)
+	        {
+	            if(n % i == 0)
+	            {
+	                StringBuilder sb = new StringBuilder();
+	                int m = n / i;
+	                for(int j=1 ; j <=m ; j++)
+	                    sb.append(s.substring(0,i));
+	                    
+	                if(sb.toString().equals(s))
+	                {
+	                    flag = true;
+	                    break;
+	                }
+	            }
+	        }
+	        
+	        if(flag)
+	            System.out.println("True");
+	        else
+	            System.out.println("False");
+	    }
+	}
+}
